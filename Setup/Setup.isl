@@ -344,7 +344,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{11F2765E-F76C-4E51-A3F6-C9E114A494BA}</td><td>WINDOWS</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{16EEE980-9D51-43ED-B11D-CBFB6F7EBE3C}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>RubyService.Primary_output</td><td>{50B85918-504D-4CBA-9421-B5560C3EC9B5}</td><td>INSTALLDIR</td><td>2</td><td/><td>rubyservice.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Utils.dll</td><td>{5A5B13A1-AEC7-4037-BC33-C66121DAF8EE}</td><td>INSTALLDIR</td><td>2</td><td/><td>utils.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Utils.dll</td><td>{9AFFCD3E-83E9-40EE-B95F-2F50EB01B738}</td><td>INSTALLDIR</td><td>2</td><td/><td>utils.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1897,9 +1897,9 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>rubysalesexporter.config.ini</td><td>ISX_DEFAULTCOMPONENT1</td><td>RUBYSA~1.INI|RubySalesExporter.config.ini</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Netgroup\Ruby\RubySalesExpoter\RubyService\RubySalesExporter.config.ini</td><td>1</td><td/></row>
+		<row><td>rubysalesexporter.config.ini</td><td>ISX_DEFAULTCOMPONENT</td><td>RUBYSA~1.INI|RubySalesExporter.config.ini</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Netgroup\Ruby\rubySalesExporterService\RubyService\RubySalesExporter.config.ini</td><td>1</td><td/></row>
 		<row><td>rubyservice.primary_output</td><td>RubyService.Primary_output</td><td>RubyService.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;RubyService&gt;|Built</td><td>3</td><td/></row>
-		<row><td>utils.dll</td><td>Utils.dll</td><td>Utils.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Netgroup\Ruby\RubySalesExpoter\DBTools\bin\Debug\Utils.dll</td><td>1</td><td/></row>
+		<row><td>utils.dll</td><td>Utils.dll</td><td>Utils.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Netgroup\Ruby\rubySalesExporterService\DBTools\bin\Debug\Utils.dll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2046,7 +2046,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_7A520D2B_8188_48AB_B12F_BECE77615F46_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_D48C6517_4A9A_49B9_ACAF_E3D80DD4B9E8_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>RubyService.Primary_output</td><td/><td/><td>_EB112E62_5FD7_499F_B763_32D4ACEC31FF_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Utils.dll</td><td/><td/><td>_EB13C233_BB3E_4C93_A0F9_2B531E74E05D_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Utils.dll</td><td/><td/><td>_70B72F38_38DF_4319_89BF_25AB433D5137_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
