@@ -54,6 +54,7 @@
     <Compile Include="MicrosCheckParametros.cs" />
     <Compile Include="MicrosCheckTotales.cs" />
     <Compile Include="NetworkShare.cs" />
+    <Compile Include="NumToText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RangoMapeo.cs" />
     <Compile Include="Receptor.cs" />

@@ -49,8 +49,8 @@ namespace RubyService
 
         private void GenerarXML(MicrosCheck check, int index)
         {
-            var str = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}", @"\\mb9787880048\D$\RecibidosXml\", "TRX", _configuration.CodigoTerminal, _configuration.CodigoBUPLA,
-                DateTime.Parse(check.Encabezado.IdDoc.Bldat).Year, DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month,
+            var str = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}", @"D:\archivos-xml\", "TRX", _configuration.CodigoTerminal, _configuration.CodigoBUPLA,
+                DateTime.Parse(check.Encabezado.IdDoc.Bldat).Year.ToString().Substring(2, 2), DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month,
                 DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day, DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour,
                 DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute, check.Encabezado.IdDoc.Znumd, ".xml");
             var filePath = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}", @"C:\Netgroup\Ruby\", "TRX",
@@ -103,26 +103,12 @@ namespace RubyService
             {
                 Logger.WriteLog(string.Format("Intento copiar de {0} a {1}", filePath, str), _logFilePath);
 
-                NetworkShare.DisconnectFromShare(@"\\mb9787880048\D$\RecibidosXml\", true); //Disconnect in case we are currently connected with our credentials;
-
-                NetworkShare.ConnectToShare(@"\\mb9787880048\D$\RecibidosXml\", "9787880048", "Ddb880048*"); //Connect with the new credentials
-
+                var connectionResponse = NetworkShare.ConnectToShare(@"\\mb9787880048", "Administrador", "DDB!94158766Kn."); //Connect with the new credentials
+                Logger.WriteLog(string.Format("ConnectionResponse: {0}", connectionResponse), _logFilePath);
                 File.Copy(filePath, str);
 
-                NetworkShare.DisconnectFromShare(@"\\mb9787880048\D$\RecibidosXml\", false); //Disconnect from the server.
+                NetworkShare.DisconnectFromShare(@"\\mb9787880048", false); //Disconnect from the server.
 
-                //var arguments = string.Format("/C copy /b {0} {1}", filePath, str);
-                //var process = new Process();
-                //var startInfo = new ProcessStartInfo
-                //{
-                //    WindowStyle = ProcessWindowStyle.Hidden,
-                //    FileName = "cmd.exe",
-                //    Arguments = arguments,
-                //    Verb = "runas"
-                //};
-
-                //process.StartInfo = startInfo;
-                //process.Start();
             }
             catch (Exception ex)
             {
@@ -163,7 +149,7 @@ namespace RubyService
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
             LeerIni();
-            var list = new List<MicrosCheck>();
+            List<MicrosCheck> list;
             try
             {
                 list = _dbConn.ReadDb(_configuration, _ultimoCheck);

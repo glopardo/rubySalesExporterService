@@ -93,7 +93,9 @@ namespace Utils
 
                 var fechaHora = reader[3].ToString();
                 var fechaHoraSeparado = fechaHora.Split(' ');
-                var fecha = fechaHoraSeparado[0];
+                var fecha = fechaHoraSeparado[0].Replace('/', '.');                
+                Logger.WriteLog(fecha, _logFilePath);
+
                 var hora = fechaHoraSeparado[1];
 
                 var doc = new IdDoc
@@ -102,9 +104,9 @@ namespace Utils
                     Znumd = reader[0].ToString(),
                     Zarri = "",
                     Waers = "CLP",
-                    Bldat = fecha,
+                    Bldat = $"{fecha}",
                     Zhora = hora.Length > 7 ? hora.Substring(0, 8) : hora.Substring(0,7),
-                    Budat = fecha,
+                    Budat = $"{fecha}",
                     Bupla = configuration.CodigoBUPLA,
                     Zsect = "",
                     Tvorg = "",
@@ -116,9 +118,9 @@ namespace Utils
                 {
                     RutEmisor = configuration.RutEmisor,
                     RznSocEmisor = configuration.RazonSocialEmisor,
-                    GiroEmisor = configuration.GiroEmisor,
-                    CdgSiiSucur = configuration.CodigoSiiSucursal,
-                    DirOrigen = configuration.DireccionOrigenEmisor,
+                    GiroEmisor = configuration.GiroEmisor.Substring(0, 30),
+                    CdgSiiSucur = configuration.CodigoSiiSucursal.Substring(0,6),
+                    DirOrigen = configuration.DireccionOrigenEmisor.Substring(0,15),
                     CmnaOrigen = configuration.ComunaOrigenEmisor,
                     CiudadOrigen = configuration.CiudadOrigenEmisor
                 };
@@ -139,9 +141,7 @@ namespace Utils
                     Emisor = emisor,
                     Receptor = receptor
                 };
-
                 
-
                 var totales = new MicrosCheckTotales();
                 try
                 {
@@ -169,7 +169,7 @@ namespace Utils
 
                 var parametros = new MicrosCheckParametros
                 {
-                    MontoEscrito = "PENDIENTE",
+                    MontoEscrito = NumToText.Convert(reader[9].ToString()),
                     Refer = "",
                     Neto = ""
                 };
@@ -304,7 +304,7 @@ namespace Utils
                         ZCate = str6,
                         ZSubc = str7,
                         ZSegm = str8,
-                        ZSubs = "",
+                        ZSubs = subReader[4].ToString(),
                         Betrw = Math.Round(double.Parse(subReader[6].ToString()) / 1.19, 0).ToString(),
                         DescuentoMonto = decimal.Zero,
                         Zimad = ""
