@@ -343,7 +343,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{B684D484-F5A1-4980-A2E1-A002DA4BCA17}</td><td>SYSTEM32</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{11F2765E-F76C-4E51-A3F6-C9E114A494BA}</td><td>WINDOWS</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{16EEE980-9D51-43ED-B11D-CBFB6F7EBE3C}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>RubyService.Primary_output</td><td>{50B85918-504D-4CBA-9421-B5560C3EC9B5}</td><td>INSTALLDIR</td><td>2</td><td/><td>rubyservice.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>RubyService.exe</td><td>{C39506E1-9CD7-43A7-A3D6-0F684D39F5E7}</td><td>INSTALLDIR</td><td>2</td><td/><td>rubyservice.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Utils.dll</td><td>{9AFFCD3E-83E9-40EE-B95F-2F50EB01B738}</td><td>INSTALLDIR</td><td>2</td><td/><td>utils.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1057,7 +1057,7 @@
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT3</td></row>
-		<row><td>INSTALLDIR</td><td>RubyService.Primary_output</td></row>
+		<row><td>INSTALLDIR</td><td>RubyService.exe</td></row>
 		<row><td>INSTALLDIR</td><td>Utils.dll</td></row>
 		<row><td>SYSTEM32</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>SYSTEM32</td><td>ISX_DEFAULTCOMPONENT1</td></row>
@@ -1881,7 +1881,7 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT3</td></row>
-		<row><td>AlwaysInstall</td><td>RubyService.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>RubyService.exe</td></row>
 		<row><td>AlwaysInstall</td><td>Utils.dll</td></row>
 	</table>
 
@@ -1898,7 +1898,8 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>rubysalesexporter.config.ini</td><td>ISX_DEFAULTCOMPONENT</td><td>RUBYSA~1.INI|RubySalesExporter.config.ini</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Netgroup\Ruby\rubySalesExporterService\RubyService\RubySalesExporter.config.ini</td><td>1</td><td/></row>
-		<row><td>rubyservice.primary_output</td><td>RubyService.Primary_output</td><td>RubyService.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;RubyService&gt;|Built</td><td>3</td><td/></row>
+		<row><td>rubyservice.exe</td><td>RubyService.exe</td><td>RUBYSE~1.EXE|RubyService.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Netgroup\Ruby\rubySalesExporterService\RubyService\bin\Debug\RubyService.exe</td><td>1</td><td/></row>
+		<row><td>rubyservice.exe.config</td><td>ISX_DEFAULTCOMPONENT3</td><td>RUBYSE~1.CON|RubyService.exe.config</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Netgroup\Ruby\rubySalesExporterService\RubyService\bin\Debug\RubyService.exe.config</td><td>1</td><td/></row>
 		<row><td>utils.dll</td><td>Utils.dll</td><td>Utils.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Netgroup\Ruby\rubySalesExporterService\DBTools\bin\Debug\Utils.dll</td><td>1</td><td/></row>
 	</table>
 
@@ -2045,7 +2046,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_715C86DC_FC29_43E7_9201_FCB4EB73CD55_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_7A520D2B_8188_48AB_B12F_BECE77615F46_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_D48C6517_4A9A_49B9_ACAF_E3D80DD4B9E8_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>RubyService.Primary_output</td><td/><td/><td>_EB112E62_5FD7_499F_B763_32D4ACEC31FF_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>RubyService.exe</td><td/><td/><td>_614F9DE0_9146_4773_ABEE_73450FEFF008_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Utils.dll</td><td/><td/><td>_70B72F38_38DF_4319_89BF_25AB433D5137_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -3449,6 +3450,7 @@
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>1395045741</td></row>
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>1395045741</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>LAUNCH~1.EXE|Launch RubyService.exe</td><td>0</td><td/><td>1395001486</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>LAUNCH~1.EXE|Launch RubyService.exe</td><td>0</td><td/><td>-1423547348</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>1395045741</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>1395045741</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>1395045741</td></row>
@@ -3855,6 +3857,7 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
 		<row><td>RubyService.exe_737022C6D4F444358D83334DF83C712E.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
+		<row><td>RubyService.exe_DBFF0D52C07C416686274CC04796073F.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4436,6 +4439,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
+		<row><td>RubyService.exe</td><td>RubyService.exe</td><td/><td>rubyse_1_rubyservice</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4521,6 +4525,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>RubyService.exe</td><td>rubyse_1_rubyservice</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>RubyService.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>RubyService.exe_DBFF0D52C07C416686274CC04796073F.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

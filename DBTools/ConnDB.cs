@@ -94,7 +94,6 @@ namespace Utils
                 var fechaHora = reader[3].ToString();
                 var fechaHoraSeparado = fechaHora.Split(' ');
                 var fecha = fechaHoraSeparado[0].Replace('/', '.');                
-                Logger.WriteLog(fecha, _logFilePath);
 
                 var hora = fechaHoraSeparado[1];
 
@@ -105,7 +104,7 @@ namespace Utils
                     Zarri = "",
                     Waers = "CLP",
                     Bldat = $"{fecha}",
-                    Zhora = hora.Length > 7 ? hora.Substring(0, 8) : hora.Substring(0,7),
+                    Zhora = hora.Length > 7 ? hora.Substring(0, 8) : $"0{hora.Substring(0, 7)}",
                     Budat = $"{fecha}",
                     Bupla = configuration.CodigoBUPLA,
                     Zsect = "",

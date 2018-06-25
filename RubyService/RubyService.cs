@@ -49,19 +49,32 @@ namespace RubyService
 
         private void GenerarXML(MicrosCheck check, int index)
         {
-            var str = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}", @"D:\archivos-xml\", "TRX", _configuration.CodigoTerminal, _configuration.CodigoBUPLA,
-                DateTime.Parse(check.Encabezado.IdDoc.Bldat).Year.ToString().Substring(2, 2), DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month,
-                DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day, DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour,
-                DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute, check.Encabezado.IdDoc.Znumd, ".xml");
-            var filePath = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}", @"C:\Netgroup\Ruby\", "TRX",
-                _configuration.CodigoTerminal, _configuration.CodigoBUPLA,
-                DateTime.Parse(check.Encabezado.IdDoc.Bldat).Year, DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month,
-                DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day, DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour,
-                DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute, check.Encabezado.IdDoc.Znumd, ".xml");
+            var str = $"{@"D:\archivos-xml\"}" +
+                           $"{"TRX"}" +
+                           $"{_configuration.CodigoTerminal}" +
+                           $"{_configuration.CodigoBUPLA}" +
+                           $"{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Year.ToString().Substring(2, 2)}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month}" : DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month.ToString())}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day}" : DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day.ToString())}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour}" : DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour.ToString())}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute}" : DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute.ToString())}" +
+                           $"{check.Encabezado.IdDoc.Znumd}" +
+                           $"{".xml"}";
+            var filePath = $"{@"C:\Netgroup\Ruby\"}" +
+                           $"{"TRX"}" +
+                           $"{_configuration.CodigoTerminal}" +
+                           $"{_configuration.CodigoBUPLA}" +
+                           $"{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Year.ToString().Substring(2, 2)}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month}" : DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month.ToString())}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day}" : DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day.ToString())}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour}" : DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour.ToString())}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute}" : DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute.ToString())}" +
+                           $"{check.Encabezado.IdDoc.Znumd}" +
+                           $"{".xml"}";
 
             try
             {
-                Logger.WriteLog(string.Format("Grabo xml en {0}", filePath), _logFilePath);
+                Logger.WriteLog($"Grabo xml en {filePath}", _logFilePath);
                 var doc = XmlFormatter.OpenFile(filePath);
                 XmlFormatter.ImprimirDocumento(filePath, doc, index);
                 XmlFormatter.ImprimirElementosEncabezado(doc, filePath, check.Encabezado, index);
@@ -101,14 +114,7 @@ namespace RubyService
 
             try
             {
-                Logger.WriteLog(string.Format("Intento copiar de {0} a {1}", filePath, str), _logFilePath);
-
-                var connectionResponse = NetworkShare.ConnectToShare(@"\\mb9787880048", "Administrador", "DDB!94158766Kn."); //Connect with the new credentials
-                Logger.WriteLog(string.Format("ConnectionResponse: {0}", connectionResponse), _logFilePath);
                 File.Copy(filePath, str);
-
-                NetworkShare.DisconnectFromShare(@"\\mb9787880048", false); //Disconnect from the server.
-
             }
             catch (Exception ex)
             {

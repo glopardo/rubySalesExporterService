@@ -288,7 +288,6 @@ namespace Utils
         {
             if (!File.Exists(filePath))
             {
-                //Logger.WriteLog("El archivo XML no existe, se genera uno nuevo.", _logFilePath);
                 try
                 {
                     return new XDocument(new XElement(string.Format("{0}", _transaccion)));
