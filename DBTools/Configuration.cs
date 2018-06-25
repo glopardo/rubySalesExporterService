@@ -12,6 +12,7 @@ namespace Utils
         public string DireccionOrigenEmisor { get; set; }
         public string ComunaOrigenEmisor { get; set; }
         public string CiudadOrigenEmisor { get; set; }
+        public string EnviaMontoEscrito { get; set; }
         public string RutReceptor { get; set; }
         public string RazonSocialReceptor { get; set; }
         public string ContactoReceptor { get; set; }

@@ -168,9 +168,9 @@ namespace Utils
 
                 var parametros = new MicrosCheckParametros
                 {
-                    MontoEscrito = NumToText.Convert(reader[9].ToString()),
-                    Refer = "",
-                    Neto = ""
+                    MontoEscrito = configuration.EnviaMontoEscrito == "1" ? NumToText.Convert(reader[9].ToString()) : string.Empty,
+                    Refer = string.Empty,
+                    Neto = string.Empty
                 };
 
                 var listaDetalle = new List<MicrosCheckDetalle>();
@@ -182,10 +182,7 @@ namespace Utils
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteLog(
-                        ex.InnerException != null
-                            ? $"Error al ejecutar reader de subquery: {ex.InnerException}"
-                            : $"Error al ejecutar reader de subquery: {ex.Message}", _logFilePath);
+                    Logger.WriteLog(ex.InnerException != null ? $"Error al ejecutar reader de subquery: {ex.InnerException}" : $"Error al ejecutar reader de subquery: {ex.Message}", _logFilePath);
                     throw;
                 }
 

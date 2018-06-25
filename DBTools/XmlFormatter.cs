@@ -123,13 +123,13 @@ namespace Utils
             elementoEmisor = new XElement("RZNSOCEMISOR", emisor.RznSocEmisor);
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_emisor).Add(elementoEmisor);
 
-            elementoEmisor = new XElement("GIROEMISOR", emisor.GiroEmisor);
+            elementoEmisor = new XElement("GIROEMISOR", emisor.GiroEmisor.Substring(0,30));
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_emisor).Add(elementoEmisor);
 
-            elementoEmisor = new XElement("CDGSIISUCUR", emisor.CdgSiiSucur);
+            elementoEmisor = new XElement("CDGSIISUCUR", emisor.CdgSiiSucur.Substring(0,6));
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_emisor).Add(elementoEmisor);
 
-            elementoEmisor = new XElement("DIRORIGEN", emisor.DirOrigen);
+            elementoEmisor = new XElement("DIRORIGEN", emisor.DirOrigen.Substring(0,15));
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_emisor).Add(elementoEmisor);
 
             elementoEmisor = new XElement("CMNAORIGEN", emisor.CmnaOrigen);
@@ -156,13 +156,13 @@ namespace Utils
             elementoReceptor = new XElement("CONTACTO", receptor.Contacto);
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_receptor).Add(elementoReceptor);
 
-            elementoReceptor = new XElement("DIRRECEP", receptor.DirRecep);
+            elementoReceptor = new XElement("DIRRECEP", receptor.DirRecep.Substring(0,15));
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_receptor).Add(elementoReceptor);
 
-            elementoReceptor = new XElement("CMNARECEP", receptor.CmnaRecep);
+            elementoReceptor = new XElement("CMNARECEP", receptor.CmnaRecep.Substring(0,15));
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_receptor).Add(elementoReceptor);
 
-            elementoReceptor = new XElement("CIUDADRECEP", receptor.CiudadRecep);
+            elementoReceptor = new XElement("CIUDADRECEP", receptor.CiudadRecep.Substring(0,15));
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_receptor).Add(elementoReceptor);
 
             doc.Save(filePath);
@@ -261,11 +261,11 @@ namespace Utils
 
             doc.Save(filePath);
         }
-        public static void ImprimirElementosParametros(XDocument doc, string filePath, MicrosCheckParametros parametros, int i)
+        public static void ImprimirElementosParametros(XDocument doc, string filePath, MicrosCheckParametros parametros, int i, bool imprimirMontoLetras)
         {
             var document = _documento + "-" + i;
 
-            var elementoParametros = new XElement("MONTO_ESCRITO", parametros.MontoEscrito);
+            var elementoParametros = new XElement("MONTO_ESCRITO", imprimirMontoLetras ? (parametros.MontoEscrito.Length > 15 ? parametros.MontoEscrito.Substring(0,15) : parametros.MontoEscrito) : "");
             doc.Element(_transaccion).Element(document).Element(_parametros).Add(elementoParametros);
 
             elementoParametros = new XElement("REFER", parametros.Refer);

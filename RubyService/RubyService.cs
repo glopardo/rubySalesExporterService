@@ -19,8 +19,8 @@ namespace RubyService
         private int _ultimoCheck;
         private Configuration _configuration;
         private ConnDB _dbConn;
-        private string _logFilePath;
-        private string _iniFileName;
+        private readonly string _logFilePath;
+        private readonly string _iniFileName;
         private Thread _thread;
 
         public RubyService()
@@ -49,18 +49,7 @@ namespace RubyService
 
         private void GenerarXML(MicrosCheck check, int index)
         {
-            var str = $"{@"D:\archivos-xml\"}" +
-                           $"{"TRX"}" +
-                           $"{_configuration.CodigoTerminal}" +
-                           $"{_configuration.CodigoBUPLA}" +
-                           $"{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Year.ToString().Substring(2, 2)}" +
-                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month}" : DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month.ToString())}" +
-                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day}" : DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day.ToString())}" +
-                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour}" : DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour.ToString())}" +
-                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute}" : DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute.ToString())}" +
-                           $"{check.Encabezado.IdDoc.Znumd}" +
-                           $"{".xml"}";
-            var filePath = $"{@"C:\Netgroup\Ruby\"}" +
+            var filePath = $"{@"D:\archivos-xml\"}" +
                            $"{"TRX"}" +
                            $"{_configuration.CodigoTerminal}" +
                            $"{_configuration.CodigoBUPLA}" +
@@ -95,14 +84,11 @@ namespace RubyService
                 XmlFormatter.ImprimirTotales(doc, filePath, index);
                 XmlFormatter.ImprimirElementosTotales(doc, filePath, check.Totales, index);
 
-                if (check.DscrgGlobal.ValorDr.Substring(0, 1) != "0")
-                {
-                    XmlFormatter.ImprimirDscrcgGlobal(doc, filePath, index);
-                    XmlFormatter.ImprimirElementosDscrcgGlobar(doc, filePath, check.DscrgGlobal, index);
-                }
+                XmlFormatter.ImprimirDscrcgGlobal(doc, filePath, index);
+                XmlFormatter.ImprimirElementosDscrcgGlobar(doc, filePath, check.DscrgGlobal, index);
 
                 XmlFormatter.ImprimirParametros(doc, filePath, index);
-                XmlFormatter.ImprimirElementosParametros(doc, filePath, check.Parametros, index);
+                XmlFormatter.ImprimirElementosParametros(doc, filePath, check.Parametros, index, _configuration.EnviaMontoEscrito == "0");
                 XmlFormatter.RenameXmlNodes(doc, filePath);
                 Logger.WriteLog($"Se generó XML para fcrInvNumber: {check.Encabezado.IdDoc.Znumd}", _logFilePath);
             }
@@ -110,15 +96,6 @@ namespace RubyService
             {
                 Logger.WriteLog($"Error al generar XML: {ex.Message}", _logFilePath);
                 throw;
-            }
-
-            try
-            {
-                File.Copy(filePath, str);
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteLog($"Error al copiar archivo a {str}: {ex.Message}", _logFilePath);
             }
         }
 

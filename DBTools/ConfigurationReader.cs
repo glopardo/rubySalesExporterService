@@ -47,6 +47,7 @@ namespace Utils
                 DireccionOrigenEmisor = dictionary["DireccionOrigenEmisor"],
                 CiudadOrigenEmisor = dictionary["CiudadOrigenEmisor"],
                 ComunaOrigenEmisor = dictionary["ComunaOrigenEmisor"],
+                EnviaMontoEscrito = dictionary["EnviaMontoEscrito"],
                 RutReceptor = dictionary["RutReceptor"],
                 RazonSocialReceptor = dictionary["RazonSocialReceptor"],
                 ContactoReceptor = dictionary["ContactoReceptor"],
