@@ -256,7 +256,7 @@ namespace Utils
             elementoDscrcgGlobal = new XElement("TPOVALOR", "%");
             doc.Element(_transaccion).Element(document).Element(_dscrcgglobal).Add(elementoDscrcgGlobal);
 
-            elementoDscrcgGlobal = new XElement("VALORDR", dscrcgGlobal.ValorDr);
+            elementoDscrcgGlobal = new XElement("VALORDR", dscrcgGlobal.ValorDr.Split(',')[0]);
             doc.Element(_transaccion).Element(document).Element(_dscrcgglobal).Add(elementoDscrcgGlobal);
 
             doc.Save(filePath);
