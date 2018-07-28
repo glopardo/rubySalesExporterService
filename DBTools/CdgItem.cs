@@ -11,6 +11,6 @@
         public string Betrw { get; set; }
         public decimal DescuentoMonto { get; set; }
         public string Zimad { get; set; }
-
+        public string CodigoItemMicros { get; set; }
     }
 }

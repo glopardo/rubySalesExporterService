@@ -300,6 +300,7 @@ namespace Utils
                         ZCate = str6,
                         ZSubc = str7,
                         ZSegm = str8,
+                        CodigoItemMicros = subReader[3].ToString(),
                         ZSubs = subReader[4].ToString(),
                         Betrw = Math.Round(double.Parse(subReader[6].ToString()) / 1.19, 0).ToString(),
                         DescuentoMonto = decimal.Zero,
@@ -312,7 +313,26 @@ namespace Utils
                         CdgItem = item
                     };
 
-                    listaDetalle.Add(detalle);
+                    var itemRepetido = false;
+                    var index = 0;
+
+                    foreach (var elementoDetalle in listaDetalle)
+                    {
+                        if (elementoDetalle.CdgItem.CodigoItemMicros == item.CodigoItemMicros)
+                        {
+                            itemRepetido = true;
+                            break;
+                        }
+                        index++;
+                    }
+
+                    if (!itemRepetido)
+                        listaDetalle.Add(detalle);
+                    else
+                    {
+                        listaDetalle[index].CdgItem.ZCant = (Convert.ToInt32(listaDetalle[index].CdgItem.ZCant) + 1).ToString();
+                    }
+
                     i++;
                 }
 
