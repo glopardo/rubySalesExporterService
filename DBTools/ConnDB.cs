@@ -41,7 +41,6 @@ namespace Utils
                     ConnectionTimeout = 600000
                 };
                 SubConnection.Open();
-                
             }
             catch (Exception exception)
             {
@@ -94,7 +93,6 @@ namespace Utils
                 var fechaHora = reader[3].ToString();
                 var fechaHoraSeparado = fechaHora.Split(' ');
                 var fecha = fechaHoraSeparado[0].Replace('/', '.');                
-
                 var hora = fechaHoraSeparado[1];
 
                 var doc = new IdDoc
@@ -117,9 +115,9 @@ namespace Utils
                 {
                     RutEmisor = configuration.RutEmisor,
                     RznSocEmisor = configuration.RazonSocialEmisor,
-                    GiroEmisor = configuration.GiroEmisor.Substring(0, 30),
-                    CdgSiiSucur = configuration.CodigoSiiSucursal.Substring(0,6),
-                    DirOrigen = configuration.DireccionOrigenEmisor.Substring(0,15),
+                    GiroEmisor = configuration.GiroEmisor.Length > 30 ? configuration.GiroEmisor.Substring(0, 30) : configuration.GiroEmisor,
+                    CdgSiiSucur = configuration.CodigoSiiSucursal.Length > 6 ? configuration.CodigoSiiSucursal.Substring(0,6) : configuration.CodigoSiiSucursal,
+                    DirOrigen = configuration.DireccionOrigenEmisor.Length > 15 ? configuration.DireccionOrigenEmisor.Substring(0,15) : configuration.DireccionOrigenEmisor,
                     CmnaOrigen = configuration.ComunaOrigenEmisor,
                     CiudadOrigen = configuration.CiudadOrigenEmisor
                 };
@@ -175,6 +173,7 @@ namespace Utils
 
                 var listaDetalle = new List<MicrosCheckDetalle>();
                 OdbcDataReader subReader;
+
                 try
                 {
                     RsDetail.CommandText = $"{_queryDetalle} {reader[0]}";
@@ -187,6 +186,7 @@ namespace Utils
                 }
 
                 var i = 1;
+
                 while (subReader.Read())
                 {
                     var num3 = int.Parse(subReader[3].ToString());
@@ -194,6 +194,7 @@ namespace Utils
                     var str7 = "Subcategoria";
                     var str8 = "Segmento";
                     var str9 = "Codigo";
+
                     foreach (var mapeo in configuration.SnackRango)
                     {
                         if ((num3 >= mapeo.Desde) && (num3 <= mapeo.Hasta))
@@ -293,6 +294,8 @@ namespace Utils
                         }
                     }
 
+                    //Logger.WriteLog(string.Format("Codigo terminal: {0}", configuration.CodigoTerminal), _logFilePath);
+
                     var item = new CdgItem
                     {
                         ZCant = subReader[5].ToString(),
@@ -304,7 +307,7 @@ namespace Utils
                         ZSubs = subReader[4].ToString(),
                         Betrw = Math.Round(double.Parse(subReader[6].ToString()) / 1.19, 0).ToString(),
                         DescuentoMonto = decimal.Zero,
-                        Zimad = ""
+                        Zimad = configuration.CodigoTerminal
                     };
 
                     var detalle = new MicrosCheckDetalle
@@ -314,6 +317,7 @@ namespace Utils
                     };
 
                     var itemRepetido = false;
+                    //En index almaceno el índice del ítem existente para luego aumentarle ZCANT
                     var index = 0;
 
                     foreach (var elementoDetalle in listaDetalle)

@@ -67,14 +67,14 @@ namespace RubyService
                 var doc = XmlFormatter.OpenFile(filePath);
                 XmlFormatter.ImprimirDocumento(filePath, doc, index);
                 XmlFormatter.ImprimirElementosEncabezado(doc, filePath, check.Encabezado, index);
-                XmlFormatter.ImprimirDetalle(doc, filePath, index);
-
+                
                 if (check.Detalle != null)
                 {
                     var j = 1;
 
                     foreach (var detalle in check.Detalle)
                     {
+                        XmlFormatter.ImprimirDetalle(doc, filePath, index, j);
                         XmlFormatter.ImprimirCdgItem(doc, filePath, index, j);
                         XmlFormatter.ImprimirElementosDetalle(doc, filePath, detalle, index, j);
                         j++;

@@ -123,13 +123,13 @@ namespace Utils
             elementoEmisor = new XElement("RZNSOCEMISOR", emisor.RznSocEmisor);
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_emisor).Add(elementoEmisor);
 
-            elementoEmisor = new XElement("GIROEMISOR", emisor.GiroEmisor.Substring(0,30));
+            elementoEmisor = new XElement("GIROEMISOR", emisor.GiroEmisor.Length > 30 ? emisor.GiroEmisor.Substring(0,30) : emisor.GiroEmisor);
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_emisor).Add(elementoEmisor);
 
-            elementoEmisor = new XElement("CDGSIISUCUR", emisor.CdgSiiSucur.Substring(0,6));
+            elementoEmisor = new XElement("CDGSIISUCUR", emisor.CdgSiiSucur.Length > 6 ? emisor.CdgSiiSucur.Substring(0,6) : emisor.CdgSiiSucur);
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_emisor).Add(elementoEmisor);
 
-            elementoEmisor = new XElement("DIRORIGEN", emisor.DirOrigen.Substring(0,15));
+            elementoEmisor = new XElement("DIRORIGEN", emisor.DirOrigen.Length > 15 ? emisor.DirOrigen.Substring(0,15) : emisor.DirOrigen);
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_emisor).Add(elementoEmisor);
 
             elementoEmisor = new XElement("CMNAORIGEN", emisor.CmnaOrigen);
@@ -156,27 +156,28 @@ namespace Utils
             elementoReceptor = new XElement("CONTACTO", receptor.Contacto);
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_receptor).Add(elementoReceptor);
 
-            elementoReceptor = new XElement("DIRRECEP", receptor.DirRecep.Substring(0,15));
+            elementoReceptor = new XElement("DIRRECEP", receptor.DirRecep.Length > 15 ? receptor.DirRecep.Substring(0,15) : receptor.DirRecep);
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_receptor).Add(elementoReceptor);
 
-            elementoReceptor = new XElement("CMNARECEP", receptor.CmnaRecep.Substring(0,15));
+            elementoReceptor = new XElement("CMNARECEP", receptor.CmnaRecep.Length > 15 ? receptor.CmnaRecep.Substring(0,15) : receptor.CmnaRecep);
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_receptor).Add(elementoReceptor);
 
-            elementoReceptor = new XElement("CIUDADRECEP", receptor.CiudadRecep.Substring(0,15));
+            elementoReceptor = new XElement("CIUDADRECEP", receptor.CiudadRecep.Length > 15 ? receptor.CiudadRecep.Substring(0,15) : receptor.CiudadRecep);
             doc.Element(_transaccion).Element(documento).Element(_encabezado).Element(_receptor).Add(elementoReceptor);
 
             doc.Save(filePath);
         }
         #endregion
 
-        public static void ImprimirElementosDetalle(XDocument doc, string filePath, MicrosCheckDetalle detalle, int i, int j)
+        public static void ImprimirElementosDetalle(XDocument doc, string filePath, MicrosCheckDetalle detalle_, int i, int j)
         {
             var document = _documento + "-" + i;
+            var detalle = _detalle + "-" + j;
 
             var elementoDetalle = new XElement("NROLINDET", j);
-            doc.Element(_transaccion).Element(document).Element(_detalle).Add(elementoDetalle);
+            doc.Element(_transaccion).Element(document).Element(detalle).Add(elementoDetalle);
 
-            ImprimirElementosCdgItem(doc, filePath, detalle.CdgItem, i, j);
+            ImprimirElementosCdgItem(doc, filePath, detalle_.CdgItem, i, j);
 
             doc.Save(filePath);
         }
@@ -186,37 +187,38 @@ namespace Utils
         {
             var documento = _documento + "-" + i;
             var codItem = _cdgItem + "-" + j;
+            var detalle = _detalle + "-" + j;
 
             var categoria = "Alimentacion y comida";
             var subcAlimentacion = "Alimentacion";
             var subcBebida = "Bebida";
 
             var elementoIdDoc = new XElement("ZCANT", cdgItem.ZCant);
-            doc.Element(_transaccion).Element(documento).Element(_detalle).Element(codItem).Add(elementoIdDoc);
+            doc.Element(_transaccion).Element(documento).Element(detalle).Element(codItem).Add(elementoIdDoc);
 
             elementoIdDoc = new XElement("ZCODP", cdgItem.ZCodp);
-            doc.Element(_transaccion).Element(documento).Element(_detalle).Element(codItem).Add(elementoIdDoc);
+            doc.Element(_transaccion).Element(documento).Element(detalle).Element(codItem).Add(elementoIdDoc);
 
             elementoIdDoc = new XElement("ZCATE", cdgItem.ZCate);
-            doc.Element(_transaccion).Element(documento).Element(_detalle).Element(codItem).Add(elementoIdDoc);
+            doc.Element(_transaccion).Element(documento).Element(detalle).Element(codItem).Add(elementoIdDoc);
 
             elementoIdDoc = new XElement("ZSUBC", cdgItem.ZSubc);
-            doc.Element(_transaccion).Element(documento).Element(_detalle).Element(codItem).Add(elementoIdDoc);
+            doc.Element(_transaccion).Element(documento).Element(detalle).Element(codItem).Add(elementoIdDoc);
 
             elementoIdDoc = new XElement("ZSEGM", cdgItem.ZSegm);
-            doc.Element(_transaccion).Element(documento).Element(_detalle).Element(codItem).Add(elementoIdDoc);
+            doc.Element(_transaccion).Element(documento).Element(detalle).Element(codItem).Add(elementoIdDoc);
 
             elementoIdDoc = new XElement("ZSUBS", cdgItem.ZSubs);
-            doc.Element(_transaccion).Element(documento).Element(_detalle).Element(codItem).Add(elementoIdDoc);
+            doc.Element(_transaccion).Element(documento).Element(detalle).Element(codItem).Add(elementoIdDoc);
 
             elementoIdDoc = new XElement("BETRW", cdgItem.Betrw);
-            doc.Element(_transaccion).Element(documento).Element(_detalle).Element(codItem).Add(elementoIdDoc);
+            doc.Element(_transaccion).Element(documento).Element(detalle).Element(codItem).Add(elementoIdDoc);
 
             elementoIdDoc = new XElement("DESCUENTOMONTO", cdgItem.DescuentoMonto);
-            doc.Element(_transaccion).Element(documento).Element(_detalle).Element(codItem).Add(elementoIdDoc);
+            doc.Element(_transaccion).Element(documento).Element(detalle).Element(codItem).Add(elementoIdDoc);
 
             elementoIdDoc = new XElement("ZIMAD", cdgItem.Zimad);
-            doc.Element(_transaccion).Element(documento).Element(_detalle).Element(codItem).Add(elementoIdDoc);
+            doc.Element(_transaccion).Element(documento).Element(detalle).Element(codItem).Add(elementoIdDoc);
 
             doc.Save(filePath);
         }
@@ -309,16 +311,16 @@ namespace Utils
 
             doc.Save(filePath);
         }
-        public static void ImprimirDetalle(XDocument doc, string filePath, int index)
+        public static void ImprimirDetalle(XDocument doc, string filePath, int i, int j)
         {
-            var detalle = new XElement(_detalle);
-            doc.Element(_transaccion).Element(_documento + "-" + index).Add(detalle);
+            var detalle = new XElement(_detalle + "-" + j);
+            doc.Element(_transaccion).Element(_documento + "-" + i).Add(detalle);
             doc.Save(filePath);
         }
         public static void ImprimirCdgItem(XDocument doc, string filePath, int i, int j)
         {
             var cdgItem = new XElement(_cdgItem + "-" + j);
-            doc.Element(_transaccion).Element(_documento + "-" + i).Element(_detalle).Add(cdgItem);
+            doc.Element(_transaccion).Element(_documento + "-" + i).Element(_detalle + "-" + j).Add(cdgItem);
             doc.Save(filePath);
         }
         public static void ImprimirTotales(XDocument doc, string filePath, int index)

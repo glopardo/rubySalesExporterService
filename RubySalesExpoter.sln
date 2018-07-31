@@ -8,6 +8,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubyService", "RubyService\RubyService.csproj", "{5EC76260-F327-4B4A-A7E9-BA39228622D2}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Setup", "Setup\Setup.isproj", "{E8EA9886-C758-4716-8BEE-67E31C516B0B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC6D7535-5879-40CF-9D06-637E74E43D69} = {DC6D7535-5879-40CF-9D06-637E74E43D69}
+		{5EC76260-F327-4B4A-A7E9-BA39228622D2} = {5EC76260-F327-4B4A-A7E9-BA39228622D2}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

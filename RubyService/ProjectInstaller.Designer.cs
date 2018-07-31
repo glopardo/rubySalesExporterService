@@ -54,7 +54,7 @@
 
         #endregion
 
-        private System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller1;
-        private System.ServiceProcess.ServiceInstaller serviceInstaller1;
+        public System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller1;
+        public System.ServiceProcess.ServiceInstaller serviceInstaller1;
     }
 }
