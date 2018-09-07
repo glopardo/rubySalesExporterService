@@ -10,7 +10,7 @@ namespace Utils
 
         public ConfigurationReader()
         {
-            _logFilePath = @"c:\Netgroup\Ruby\RubySalesExporterService.log";
+            _logFilePath = @"d:\Netgroup\Ruby\RubySalesExporterService.log";
         }
 
         public Configuration Read(string filePath)

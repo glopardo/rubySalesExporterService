@@ -25,7 +25,7 @@ namespace RubyService
 
         public RubyService()
         {
-            _logFilePath = @"c:\Netgroup\Ruby\RubySalesExporterService.log";
+            _logFilePath = @"d:\Netgroup\Ruby\RubySalesExporterService.log";
             _iniFileName = "RubySalesExporter.config.ini";
             components = null;
             InitializeComponent();
@@ -80,7 +80,7 @@ namespace RubyService
                 XmlFormatter.ImprimirDocumento(filePath, doc, index);
                 XmlFormatter.ImprimirElementosEncabezado(doc, filePath, check.Encabezado, index);
                 
-                Logger.WriteLog($"Detalles qty: {check.Encabezado.IdDoc.Znumd} - {check.Detalle.Count}", _logFilePath);
+                //Logger.WriteLog($"Detalles qty: {check.Encabezado.IdDoc.Znumd} - {check.Detalle.Count}", _logFilePath);
                     
                 if (check.Detalle.Count != 0)
                 {
@@ -119,7 +119,7 @@ namespace RubyService
                     throw;
                 }
                 
-                Logger.WriteLog($"Se generó XML para fcrInvNumber: {check.Encabezado.IdDoc.Znumd}", _logFilePath);
+                Logger.WriteLog($"Se generó XML para fcrInvNumber: {check.Encabezado.IdDoc.Znumd} en la ruta {filePath}", _logFilePath);
             }
             catch (Exception ex)
             {
@@ -132,7 +132,7 @@ namespace RubyService
         {
             try
             {
-                Directory.CreateDirectory(@"c:\Netgroup\Ruby\");
+                //Directory.CreateDirectory(@"c:\Netgroup\Ruby\");
                 Directory.CreateDirectory(@"D:\Netgroup\Ruby\xml\");
 
                 _configuration = new ConfigurationReader().Read(_iniFileName);

@@ -19,7 +19,7 @@ namespace Utils
         private const string _totales = "TOTALES";
         private const string _dscrcgglobal = "DSCRCGGLOBAL";
         private const string _parametros = "PARAMETROS";
-        private const string _logFilePath = @"c:\Netgroup\Ruby\RubySalesExporterService.log";
+        private const string _logFilePath = @"d:\Netgroup\Ruby\RubySalesExporterService.log";
         #endregion
 
         #region Document
