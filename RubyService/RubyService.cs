@@ -61,14 +61,28 @@ namespace RubyService
                            $"{check.Encabezado.IdDoc.Znumd}" +
                            $"{".xml"}";
 
+            var copyPath = $"{@"D:\Netgroup\Ruby\xml\"}" +
+                           $"{"TRX"}" +
+                           $"{_configuration.CodigoTerminal}" +
+                           $"{_configuration.CodigoBUPLA}" +
+                           $"{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Year.ToString().Substring(2, 2)}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month}" : DateTime.Parse(check.Encabezado.IdDoc.Bldat).Month.ToString())}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day}" : DateTime.Parse(check.Encabezado.IdDoc.Bldat).Day.ToString())}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour}" : DateTime.Parse(check.Encabezado.IdDoc.Zhora).Hour.ToString())}" +
+                           $"{(DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute.ToString().Length == 1 ? $"0{DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute}" : DateTime.Parse(check.Encabezado.IdDoc.Zhora).Minute.ToString())}" +
+                           $"{check.Encabezado.IdDoc.Znumd}" +
+                           $"{".xml"}";
+
             try
             {
-                Logger.WriteLog($"Grabo xml en {filePath}", _logFilePath);
+                //Logger.WriteLog($"Grabo xml en {filePath}", _logFilePath);
                 var doc = XmlFormatter.OpenFile(filePath);
                 XmlFormatter.ImprimirDocumento(filePath, doc, index);
                 XmlFormatter.ImprimirElementosEncabezado(doc, filePath, check.Encabezado, index);
                 
-                if (check.Detalle != null)
+                Logger.WriteLog($"Detalles qty: {check.Encabezado.IdDoc.Znumd} - {check.Detalle.Count}", _logFilePath);
+                    
+                if (check.Detalle.Count != 0)
                 {
                     var j = 1;
 
@@ -80,6 +94,10 @@ namespace RubyService
                         j++;
                     }
                 }
+                else
+                {
+                    Logger.WriteLog("El documento aún no posee detalles grabados en base de datos.", _logFilePath);
+                }
 
                 XmlFormatter.ImprimirTotales(doc, filePath, index);
                 XmlFormatter.ImprimirElementosTotales(doc, filePath, check.Totales, index);
@@ -90,6 +108,17 @@ namespace RubyService
                 XmlFormatter.ImprimirParametros(doc, filePath, index);
                 XmlFormatter.ImprimirElementosParametros(doc, filePath, check.Parametros, index, _configuration.EnviaMontoEscrito == "0");
                 XmlFormatter.RenameXmlNodes(doc, filePath);
+
+                try
+                {
+                    File.Copy(filePath, copyPath, true);
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteLog($"Error al copiar xml: {ex.Message}", _logFilePath);
+                    throw;
+                }
+                
                 Logger.WriteLog($"Se generó XML para fcrInvNumber: {check.Encabezado.IdDoc.Znumd}", _logFilePath);
             }
             catch (Exception ex)
@@ -103,6 +132,9 @@ namespace RubyService
         {
             try
             {
+                Directory.CreateDirectory(@"c:\Netgroup\Ruby\");
+                Directory.CreateDirectory(@"D:\Netgroup\Ruby\xml\");
+
                 _configuration = new ConfigurationReader().Read(_iniFileName);
                 if (int.Parse(_configuration.UltimoCheck) != _ultimoCheck)
                 {
@@ -135,7 +167,7 @@ namespace RubyService
             List<MicrosCheck> list;
             try
             {
-                list = _dbConn.ReadDb(_configuration, _ultimoCheck);
+                list = _dbConn.ReadDb(_configuration, _ultimoCheck, false);
             }
             catch (Exception ex)
             {
@@ -146,8 +178,13 @@ namespace RubyService
 
             foreach (var check in list)
             {
+                if (check.Detalle.Count == 0)
+                {
+                    //Logger.WriteLog($"Check {check.Encabezado.IdDoc.Znumd} no tiene detalles.", _logFilePath);
+                    break;
+                }
+
                 GenerarXML(check, index);
-                Logger.WriteLog($"Procesado el fcrInvNumber {check.Encabezado.IdDoc.Znumd}", _logFilePath);
                 ActualizarIni(int.Parse(check.Encabezado.IdDoc.Znumd));
                 _ultimoCheck = int.Parse(check.Encabezado.IdDoc.Znumd);
                 index++;

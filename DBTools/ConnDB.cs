@@ -20,7 +20,7 @@ namespace Utils
         public ConnDB(string connectionString)
         {
             _connString = connectionString;
-            _queryEncabezado = "SELECT FCRINVNUMBER, MICROSCHKNUM, INVOICETYPE, FCRBSNZDATE, SUBTOTAL1 BRUTO, SUBTOTAL2 DESCUENTOS, SUBTOTAL5 EXENTO, SUBTOTAL9 PROPINA, SUBTOTAL6 IVA, SUBTOTAL8 NETO FROM MICROS.FCR_INVOICE_DATA WHERE FCRINVNUMBER >";
+            _queryEncabezado = "SELECT FCRINVNUMBER, MICROSCHKNUM, INVOICETYPE, FCRBSNZDATE, SUBTOTAL1 BRUTO, SUBTOTAL2 DESCUENTOS, SUBTOTAL5 EXENTO, SUBTOTAL9 PROPINA, SUBTOTAL6 IVA, SUBTOTAL8 NETO FROM MICROS.FCR_INVOICE_DATA WHERE FCRINVNUMBER ";
             _orderByEncabezado = "ORDER BY FCRINVNUMBER";
             _queryDetalle = "SELECT CONVERT(CHAR(10), FID.FCRBSNZDATE, 112) FECHA, FID.FCRINVNUMBER, FID.MICROSCHKNUM, MD.OBJ_NUM ITEM, D.DTL_NAME, D.RPT_CNT, D.CHK_TTL TOTAL FROM MICROS.FCR_INVOICE_DATA FID, MICROS.CHK_DTL CD, MICROS.TRANS_DTL TD, MICROS.DTL D, MICROS.MI_DTL MD WHERE CD.CHK_NUM = FID.MICROSCHKNUM AND CONVERT(CHAR(10), CD.CHK_CLSD_DATE_TIME,112) = CONVERT(CHAR(10), FID.FCRBSNZDATE,112) AND TD.CHK_SEQ = CD.CHK_SEQ AND D.TRANS_SEQ = TD.TRANS_SEQ AND MD.TRANS_SEQ = D.TRANS_SEQ AND D.DTL_SEQ = MD.DTL_SEQ AND D.CHK_TTL<> 0 AND FID.FCRINVNUMBER = ";
             _logFilePath = @"c:\Netgroup\Ruby\RubySalesExporterService.log";
@@ -49,13 +49,13 @@ namespace Utils
             }
         }
 
-        public List<MicrosCheck> ReadDb(Configuration configuration, int ultimoCheck)
+        public List<MicrosCheck> ReadDb(Configuration configuration, int ultimoCheck, bool manual)
         {
             var list = new List<MicrosCheck>();
 
             RsHeader = new OdbcCommand
             {
-                CommandText = $"{_queryEncabezado} {ultimoCheck} {_orderByEncabezado}",
+                CommandText = !manual ? $"{_queryEncabezado} > {ultimoCheck} {_orderByEncabezado}" : $"{_queryEncabezado} = {ultimoCheck} {_orderByEncabezado}",
                 Connection = Connection
             };
 
@@ -107,7 +107,7 @@ namespace Utils
                     Bupla = configuration.CodigoBUPLA,
                     Zsect = "",
                     Tvorg = "",
-                    Mwskz = "CO",
+                    Mwskz = "C1",
                     Vkont = ""
                 };
 
